@@ -28,6 +28,21 @@ GameMechs::~GameMechs()
     //No heap data members
 }
 
+// GameMechs& GameMechs::operator=(const GameMechs& g)
+// {
+//     if(this == &g){
+//         return *this;
+//     }
+//     this->input = g.input;
+//     this->exitFlag = g.exitFlag;
+//     this->loseFlag = g.loseFlag;
+//     this->score = g.score;
+//     this->boardSizeX = g.boardSizeX;
+//     this->boardSizeY = g.boardSizeY;
+
+//     return *this;
+// }
+
 bool GameMechs::getExitFlagStatus() const
 {
     return exitFlag;
