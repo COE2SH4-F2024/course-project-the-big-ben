@@ -16,7 +16,7 @@ objPosArrayList::objPosArrayList() //initializing our arrayList
 
 objPosArrayList::~objPosArrayList()
 {
-    delete aList;
+    delete[] aList;
 }
 
 int objPosArrayList::getSize() const
@@ -27,20 +27,24 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    listSize++;
+    // listSize++;
 
-    objPos temp = thisPos;
-    objPos prevVal;
+    // objPos temp = thisPos;
+    // objPos prevVal;
 
-    for(int i = 0; i<listSize; i++){
-        prevVal = aList[i];
-        aList[i] = temp;
-        temp = prevVal;
+    // for(int i = 0; i<listSize; i++){
+    //     prevVal = aList[i];
+    //     aList[i] = temp;
+    //     temp = prevVal;
+    // }
+    /*  another way to do it that doesn't require so many temp variables
+        it shifts everything to the right, starting at the end of the list and then just adds thisPos to the front*/
+    for (int i = listSize; i > 0; i--) {
+        aList[i] = aList[i - 1];
     }
+    aList[0] = thisPos;
+    listSize++;
     
-    
-    
-
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
@@ -55,11 +59,15 @@ void objPosArrayList::removeHead()
     for(int i = 0; i<listSize; i++){
         aList[i] = aList[i+1];
     }
+    aList[listSize] = objPos();
 }
 
 void objPosArrayList::removeTail()
 {
-    listSize--;
+      if(listSize >0){
+        listSize--;
+        aList[listSize] = objPos();
+    }
 }
 
 objPos objPosArrayList::getHeadElement() const

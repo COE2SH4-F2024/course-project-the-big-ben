@@ -67,6 +67,10 @@ objPos objPos::getObjPos() const
     return returnPos;
 }
 
+Pos objPos::getPos() const
+{
+    return *pos;
+}
 char objPos::getSymbol() const
 {
     return symbol;

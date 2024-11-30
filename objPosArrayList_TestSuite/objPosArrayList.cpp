@@ -16,7 +16,7 @@ objPosArrayList::objPosArrayList() //initializing our arrayList
 
 objPosArrayList::~objPosArrayList()
 {
-    delete aList;
+    delete[] aList;
 }
 
 int objPosArrayList::getSize() const
@@ -27,20 +27,21 @@ int objPosArrayList::getSize() const
 
 void objPosArrayList::insertHead(objPos thisPos)
 {
-    listSize++;
+    // listSize++;
 
-    objPos temp = thisPos;
-    objPos prevVal;
+    // objPos temp = thisPos;
+    // objPos prevVal;
 
-    for(int i = 0; i<listSize; i++){
-        prevVal = aList[i];
-        aList[i] = temp;
-        temp = prevVal;
+    // for(int i = 0; i<listSize; i++){
+    //     prevVal = aList[i];
+    //     aList[i] = temp;
+    //     temp = prevVal;
+    // }
+    for (int i = listSize; i > 0; i--) {
+        aList[i] = aList[i - 1];
     }
-    
-    
-    
-
+    aList[0] = thisPos;
+    listSize++;
 }
 
 void objPosArrayList::insertTail(objPos thisPos)
@@ -55,11 +56,15 @@ void objPosArrayList::removeHead()
     for(int i = 0; i<listSize; i++){
         aList[i] = aList[i+1];
     }
+    aList[listSize] = objPos();
 }
 
 void objPosArrayList::removeTail()
 {
-    listSize--;
+    if(listSize >0){
+        listSize--;
+        aList[listSize] = objPos();
+    }
 }
 
 objPos objPosArrayList::getHeadElement() const
