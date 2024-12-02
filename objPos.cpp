@@ -38,12 +38,8 @@ objPos& objPos::operator=(const objPos& other){ //copy assignment operator
     return *this;
 }
 
-
-
-
-
-
-void objPos::setObjPos(objPos o)
+//setter functions
+void objPos::setObjPos(objPos o)  
 {
     pos->x = o.pos->x;
     pos->y = o.pos->y;
@@ -57,6 +53,7 @@ void objPos::setObjPos(int xPos, int yPos, char sym)
     symbol = sym;
 }
 
+//getter functions
 objPos objPos::getObjPos() const
 {
     objPos returnPos;
@@ -76,7 +73,7 @@ char objPos::getSymbol() const
     return symbol;
 }
 
-bool objPos::isPosEqual(const objPos* refPos) const
+bool objPos::isPosEqual(const objPos* refPos) const     //evaluates if x and y positions of two objPos are equal
 {
     return (refPos->pos->x == pos->x && refPos->pos->y == pos->y);
 }

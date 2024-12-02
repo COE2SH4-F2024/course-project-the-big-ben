@@ -1,6 +1,6 @@
 #include "GameMechs.h"
 
-GameMechs::GameMechs()
+GameMechs::GameMechs()    //Default Constructor with gameboard of 30 by 15
 {
     input = 0;
     exitFlag = false;
@@ -11,7 +11,7 @@ GameMechs::GameMechs()
     boardSizeY = 15;
 }
 
-GameMechs::GameMechs(int boardX, int boardY)
+GameMechs::GameMechs(int boardX, int boardY)      //Constructor with board game size parameters
 {
     input = 0;
     exitFlag = false;
@@ -21,14 +21,14 @@ GameMechs::GameMechs(int boardX, int boardY)
     boardSizeX = boardX;
     boardSizeY = boardY;
 }
-
-// do you need a destructor?
-GameMechs::~GameMechs()
+ 
+GameMechs::~GameMechs() //GameMechs class has no heap members
 {
     //No heap data members
 }
 
-bool GameMechs::getExitFlagStatus() const
+//getter functions to return variables
+bool GameMechs::getExitFlagStatus() const   
 {
     return exitFlag;
 }
@@ -38,7 +38,6 @@ bool GameMechs::getLoseFlagStatus() const
     return loseFlag;
 }
     
-
 char GameMechs::getInput() const
 {
     return input;
@@ -47,11 +46,6 @@ char GameMechs::getInput() const
 int GameMechs::getScore() const
 {
     return score;
-}
-
-void GameMechs::incrementScore()
-{
-    score++;
 }
 
 int GameMechs::getBoardSizeX() const
@@ -64,6 +58,12 @@ int GameMechs::getBoardSizeY() const
     return boardSizeY;
 }
 
+void GameMechs::incrementScore()    //increment score by 1
+{
+    score++;
+}
+
+//setters functions to set GameMech variables
 void GameMechs::setExitTrue()
 {
     exitFlag = true;
@@ -83,5 +83,3 @@ void GameMechs::clearInput()
 {
     input = 0;
 }
-
-// More methods should be added here

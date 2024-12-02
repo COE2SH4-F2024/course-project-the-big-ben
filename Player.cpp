@@ -1,86 +1,82 @@
 #include "Player.h"
 
 
-Player::Player(GameMechs* thisGMRef)
+Player::Player(GameMechs* thisGMRef)    //constructor with GameMechs parameter
 {
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
 
-    // more actions to be included
-    //playerPos = objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '+');
     playerPosList = new objPosArrayList();
-    playerPosList->insertHead(objPos(mainGameMechsRef->getBoardSizeX()/3, mainGameMechsRef->getBoardSizeY()/2, '+'));
-    /*TESTING BLOCK*/
+    playerPosList->insertHead(objPos(mainGameMechsRef->getBoardSizeX()/2, mainGameMechsRef->getBoardSizeY()/2, '+'));
+    /*TESTING BLOCK
     playerPosList->insertTail(objPos((mainGameMechsRef->getBoardSizeX()/3)-1, mainGameMechsRef->getBoardSizeY()/2, '+'));
     playerPosList->insertTail(objPos((mainGameMechsRef->getBoardSizeX()/3)-2, mainGameMechsRef->getBoardSizeY()/2, '+'));
     playerPosList->insertTail(objPos((mainGameMechsRef->getBoardSizeX()/3)-3, mainGameMechsRef->getBoardSizeY()/2, '+'));
     playerPosList->insertTail(objPos((mainGameMechsRef->getBoardSizeX()/3)-4, mainGameMechsRef->getBoardSizeY()/2, '+'));
     playerPosList->insertTail(objPos((mainGameMechsRef->getBoardSizeX()/3)-5, mainGameMechsRef->getBoardSizeY()/2, '+'));
-    
+    */
 }
 
-
-Player::~Player()
+Player::~Player()   //destructor
 {
     delete playerPosList;
     // delete any heap members here
 }
 
-objPosArrayList& Player::getPlayerPos() const
+objPosArrayList& Player::getPlayerPos() const   //copy assignment operator
 {
     return *playerPosList;  
     // return the reference to the playerPos arrray list
 }
 
-void Player::updatePlayerDir()
+void Player::updatePlayerDir()      //gets input and updates player direction
 {
     char input = mainGameMechsRef->getInput();
     
     switch(input)
     {
-        case ' ':
+        case ' ':   //exit if input is SPACE
             mainGameMechsRef->setExitTrue();
             break;
-        case 'w':
+        case 'w':   //move up
             if(myDir != DOWN){
                 myDir = UP;
             }
             break;
-        case 'a':
-            if(myDir != RIGHT && myDir !=STOP){
+        case 'a':   //move left
+            // if(myDir != RIGHT && myDir !=STOP){
+            //     myDir = LEFT;
+            // }
+            if(myDir != RIGHT){
                 myDir = LEFT;
             }
             break;
-        case 's':
+        case 's':   //move down
             if(myDir != UP){
                 myDir = DOWN;
             }
             break;
-        case 'd':
+        case 'd':   //move right
             if(myDir != LEFT){
                 myDir = RIGHT;
             }
             break;
         default:
             break;
-    }
-        // PPA3 input processing logic     
+    }  
     input = 0;   
 }
 
-void Player::movePlayer(Food* foodObj)
+void Player::movePlayer(Food* foodObj)  //function to move the player while checking for collision
 {
-    //objPos playerHead = playerPosList->getHeadElement();
     int x = playerPosList->getHeadElement().pos->x;
     int y = playerPosList->getHeadElement().pos->y;
-    
-    // getPlayerPos().getHeadElement().pos->x;
-    // int y = playerPosList->getPlayerPos().getHeadElement().pos->y;
 
-    if(checkSelfCollision()){
+    if(checkSelfCollision()){   //check collision with itself
         mainGameMechsRef->setLoseFlag();
         mainGameMechsRef->setExitTrue();
-    } else {
+    } 
+    else {    //moves player in player direction
         switch(myDir)
         {
             case STOP:
@@ -113,29 +109,28 @@ void Player::movePlayer(Food* foodObj)
                 break;
         }
 
-        if(myDir != STOP){
-           if (checkFoodConsumption(foodObj)){
+        if(myDir != STOP){      
+           if (checkFoodConsumption(foodObj)){      //increases snake size and increments score if food consumed
                 getPlayerPos().insertHead(objPos(x, y, '+'));
                 foodObj->generateFood(this->getPlayerPos(), mainGameMechsRef);
                 mainGameMechsRef->incrementScore();
-            }else {
+            }else {     //moves the player by inserting head and deleting tail
                 getPlayerPos().insertHead(objPos(x, y, '+'));
                 getPlayerPos().removeTail();
             }
         }
     }
-    // PPA3 Finite State Machine logic
 }
 
 
-bool Player::checkFoodConsumption(Food* foodObj){
+bool Player::checkFoodConsumption(Food* foodObj){   //function to check if player consumes/collides with food
     if(playerPosList->getHeadElement().pos->x == foodObj->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == foodObj->getFoodPos().pos->y){
         return true;
     }
     return false;
 }
 
-bool Player::checkSelfCollision(){
+bool Player::checkSelfCollision(){      //function to check if snake collided with itself
     int playerSize = playerPosList->getSize();
 
     int headPosX = playerPosList->getHeadElement().pos->x;
@@ -151,4 +146,3 @@ bool Player::checkSelfCollision(){
     return false;
     
 }
-// More methods to be added

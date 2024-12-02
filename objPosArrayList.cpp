@@ -1,8 +1,5 @@
 #include "objPosArrayList.h"
 
-// Check lecture contents on general purpose array list construction, 
-// and modify it to support objPos array list construction.
-
 objPosArrayList::objPosArrayList() //initializing our arrayList
 {
     arrayCapacity = ARRAY_MAX_CAP;
@@ -14,7 +11,7 @@ objPosArrayList::objPosArrayList() //initializing our arrayList
     }
 }
 
-objPosArrayList::~objPosArrayList()
+objPosArrayList::~objPosArrayList()     //destructor
 {
     delete[] aList;
 }
@@ -24,21 +21,8 @@ int objPosArrayList::getSize() const
     return listSize;
 }
 
-
-void objPosArrayList::insertHead(objPos thisPos)
+void objPosArrayList::insertHead(objPos thisPos)    //insert objPos at head of the list
 {
-    // listSize++;
-
-    // objPos temp = thisPos;
-    // objPos prevVal;
-
-    // for(int i = 0; i<listSize; i++){
-    //     prevVal = aList[i];
-    //     aList[i] = temp;
-    //     temp = prevVal;
-    // }
-    /*  another way to do it that doesn't require so many temp variables
-        it shifts everything to the right, starting at the end of the list and then just adds thisPos to the front*/
     for (int i = listSize; i > 0; i--) {
         aList[i] = aList[i - 1];
     }
@@ -47,13 +31,13 @@ void objPosArrayList::insertHead(objPos thisPos)
     
 }
 
-void objPosArrayList::insertTail(objPos thisPos)
+void objPosArrayList::insertTail(objPos thisPos)    //insert objPos at tail of the list
 {
     aList[listSize] = thisPos;
     listSize++;
 }
 
-void objPosArrayList::removeHead()
+void objPosArrayList::removeHead()      //removes head objPos from list
 {
     listSize--;
     for(int i = 0; i<listSize; i++){
@@ -62,7 +46,7 @@ void objPosArrayList::removeHead()
     aList[listSize] = objPos();
 }
 
-void objPosArrayList::removeTail()
+void objPosArrayList::removeTail()      //remove tail objPos from list
 {
       if(listSize >0){
         listSize--;
@@ -70,6 +54,7 @@ void objPosArrayList::removeTail()
     }
 }
 
+//getter functions
 objPos objPosArrayList::getHeadElement() const
 {
     return aList[0];
