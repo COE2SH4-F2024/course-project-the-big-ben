@@ -68,7 +68,7 @@ void Player::updatePlayerDir()
     input = 0;   
 }
 
-void Player::movePlayer()
+void Player::movePlayer(Food* foodObj)
 {
     //objPos playerHead = playerPosList->getHeadElement();
     int x = playerPosList->getHeadElement().pos->x;
@@ -109,10 +109,24 @@ void Player::movePlayer()
             break;
     }
 
-    getPlayerPos().insertHead(objPos(x, y, '+'));
-    getPlayerPos().removeTail();
+    if (checkFoodConsumption(foodObj)){
+        getPlayerPos().insertHead(objPos(x, y, '+'));
+        foodObj->generateFood(this->getPlayerPos(), mainGameMechsRef);
+        mainGameMechsRef->incrementScore();
+    }else {
+        getPlayerPos().insertHead(objPos(x, y, '+'));
+        getPlayerPos().removeTail();
+    }
+    
     
     // PPA3 Finite State Machine logic
 }
 
+
+bool Player::checkFoodConsumption(Food* foodObj){
+    if(playerPosList->getHeadElement().pos->x == foodObj->getFoodPos().pos->x && playerPosList->getHeadElement().pos->y == foodObj->getFoodPos().pos->y){
+        return true;
+    }
+    return false;
+}
 // More methods to be added
