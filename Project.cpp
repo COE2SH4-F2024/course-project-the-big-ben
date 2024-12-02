@@ -82,9 +82,10 @@ void DrawScreen(void)
             else{
                 bool drawn = false;
                 for(int k=0; k<player->getPlayerPos().getSize(); k++){
-                    if((j==player->getPlayerPos().getElement(k).pos->x)&&(i==player->getPlayerPos().getElement(k).pos->y) && !drawn){
+                    if((j==player->getPlayerPos().getElement(k).pos->x)&&(i==player->getPlayerPos().getElement(k).pos->y)){
                         MacUILib_printf("%c", player->getPlayerPos().getElement(k).symbol);
                         drawn = true;
+                        break; //exit loop if we printed something
                     }
                 }
                 if(!drawn && (i==food->getFoodPos().pos->y)&&(j==food->getFoodPos().pos->x)){
@@ -121,6 +122,8 @@ void CleanUp(void)
 
     if (game->getLoseFlagStatus()){
         MacUILib_printf("\n Game Over\n\n===========\n Score: %d\n===========\n", game->getScore());
+    } else {
+        MacUILib_printf("\nGame Exited\n\n===========\n Score: %d\n===========\n", game->getScore());
     }
 
     delete game;
