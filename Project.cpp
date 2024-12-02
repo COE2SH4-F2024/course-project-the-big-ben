@@ -98,6 +98,7 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
+    MacUILib_printf("Score: %d\n", game->getScore());
     MacUILib_printf("============================================================\n");
     MacUILib_printf("FOR DEBUGGING PURPOSES\n");
     int xPrint = player->getPlayerPos().getHeadElement().getPos().x;
@@ -117,6 +118,10 @@ void LoopDelay(void)
 void CleanUp(void)
 {
     MacUILib_clearScreen();    
+
+    if (game->getLoseFlagStatus()){
+        MacUILib_printf("\n Game Over\n\n===========\n Score: %d\n===========\n", game->getScore());
+    }
 
     delete game;
     delete player;
