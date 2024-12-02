@@ -82,7 +82,7 @@ void DrawScreen(void)
             else{
                 bool drawn = false;
                 for(int k=0; k<player->getPlayerPos().getSize(); k++){
-                    if((j==player->getPlayerPos().getElement(k).pos->x)&&(i==player->getPlayerPos().getElement(k).pos->y)){
+                    if((j==player->getPlayerPos().getElement(k).pos->x)&&(i==player->getPlayerPos().getElement(k).pos->y) && !drawn){
                         MacUILib_printf("%c", player->getPlayerPos().getElement(k).symbol);
                         drawn = true;
                     }
